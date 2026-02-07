@@ -13,6 +13,10 @@ import 'dotenv/config';
 import path from 'path';
 import { SkilloContentStrategyPlugin } from './plugins/skillo-content-strategy/skillo-content-strategy.plugin';
 
+// Social Connector – OAuth + insights (Meta, LinkedIn, YouTube) on same server
+const socialConnectorPath = path.join(__dirname, '..', 'social-connector', 'router.js');
+const { router: socialConnectorRouter } = require(socialConnectorPath);
+
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
 
@@ -22,6 +26,11 @@ export const config: VendureConfig = {
         adminApiPath: 'admin-api',
         shopApiPath: 'shop-api',
         trustProxy: IS_DEV ? false : 1,
+        middleware: [
+            { route: 'health', handler: socialConnectorRouter },
+            { route: 'auth', handler: socialConnectorRouter },
+            { route: 'insights', handler: socialConnectorRouter },
+        ],
         // The following options are useful in development mode,
         // but are best turned off for production for security
         // reasons.

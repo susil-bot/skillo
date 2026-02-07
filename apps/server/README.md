@@ -98,6 +98,23 @@ docker-compose up postgres_db
 docker-compose up redis
 ```
 
+## Social Connector (integrated)
+
+OAuth and insights for **Meta (Instagram)**, **LinkedIn**, and **YouTube** are mounted on the same server (no separate process).
+
+- **Health:** `GET /health`
+- **OAuth:** `GET /auth/meta`, `/auth/linkedin`, `/auth/youtube` (and `/callback` for each). Optional `?userId=xxx`.
+- **Insights:** `GET /insights/instagram`, `/insights/linkedin`, `/insights/youtube` (optional `?userId=xxx`).
+
+Set the following in `.env` (or your environment) as needed:
+
+- `BASE_URL` or `SOCIAL_CONNECTOR_BASE_URL` – public URL of this server (default: `http://localhost:${PORT}`). Used for OAuth redirect URIs.
+- **Meta:** `META_APP_ID`, `META_APP_SECRET`; optional `META_REDIRECT_URI`.
+- **LinkedIn:** `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`; optional `LINKEDIN_REDIRECT_URI`.
+- **YouTube:** `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`; optional `GOOGLE_REDIRECT_URI`.
+
+Tokens are stored in `social-connector/token-store.json` (gitignored). Replace with a database store for production.
+
 ## Plugins
 
 In Vendure, your custom functionality will live in [plugins](https://www.vendure.io/docs/plugins/).
