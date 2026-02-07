@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:server": "ts-node ./src/index.ts",
+    "dev:worker": "ts-node ./src/index-worker.ts",
+    "dev:dashboard": "vite --clearScreen false",
+    "dev": "concurrently --kill-others npm:dev:*",
+    "build": "tsc",
+    "build:dashboard": "vite build",
+    "start:server": "node ./dist/index.js",
+    "start:worker": "node ./dist/index-worker.js",
+    "start": "concurrently npm:start:*",
+    "db:up": "docker compose -f apps/server/docker-compose.yml up -d postgres_db",
+    "db:reset": "docker compose exec postgres_db psql -U vendure -d vendure -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public;\"",
+    "db:fresh": "docker compose down -v && docker compose up -d postgres_db",
+    "create-tenants": "node scripts/create-tenants.mjs"
+  },
+  "dependencies": {
+    "@vendure/asset-server-plugin": "3.5.3",
+    "@vendure/core": "3.5.3",
+    "@vendure/dashboard": "3.5.3",
+    "@vendure/email-plugin": "3.5.3",
+    "@vendure/graphiql-plugin": "3.5.3",
+    "dotenv": "17.2.4",
+    "pg": "8.18.0"
+  },
+  "devDependencies": {
+    "@vendure/cli": "3.5.3",
+    "concurrently": "9.2.1",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.2"
+  }
+}
