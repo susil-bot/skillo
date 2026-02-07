@@ -1,0 +1,87 @@
+import type { ContentCalendarItem } from './types';
+
+const now = new Date();
+const pad = (n: number) => String(n).padStart(2, '0');
+const isoDate = (y: number, m: number, d: number) =>
+  `${y}-${pad(m)}-${pad(d)}`;
+const isoNow = () => now.toISOString();
+
+export const MOCK_CALENDAR_ITEMS: ContentCalendarItem[] = [
+  {
+    id: 'cc-1',
+    title: 'Instagram Reel: Morning Routine',
+    description: 'Quick morning routine for creators',
+    date: isoDate(2025, 3, 24),
+    platforms: ['instagram', 'facebook'],
+    status: 'drafting',
+    contentType: 'reel',
+    linkedContentIds: [],
+    brandTag: 'Lifestyle',
+    notes: 'Film in natural light',
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+  {
+    id: 'cc-2',
+    title: 'Blog Post: Productivity Hacks',
+    description: '5 productivity tips for small business',
+    date: isoDate(2025, 3, 25),
+    platforms: ['blog'],
+    status: 'published',
+    contentType: 'article',
+    linkedContentIds: ['cc-4'],
+    brandTag: 'Education',
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+  {
+    id: 'cc-3',
+    title: 'YouTube Video: Notion Setup',
+    description: 'Full Notion workspace tour',
+    date: isoDate(2025, 3, 26),
+    platforms: ['youtube'],
+    status: 'editing',
+    contentType: 'long-form',
+    linkedContentIds: [],
+    brandTag: 'Tutorial',
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+  {
+    id: 'cc-4',
+    title: 'Tweet Thread: Time Management Tips',
+    description: 'Thread version of productivity post',
+    date: isoDate(2025, 3, 25),
+    platforms: ['x', 'linkedin'],
+    status: 'scheduled',
+    contentType: 'thread',
+    linkedContentIds: ['cc-2'],
+    brandTag: 'Education',
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+  {
+    id: 'cc-5',
+    title: 'Pinterest Infographic: Study Hacks',
+    description: 'Visual study tips for students',
+    date: isoDate(2025, 3, 27),
+    platforms: ['pinterest'],
+    status: 'scheduled',
+    contentType: 'infographic',
+    linkedContentIds: [],
+    brandTag: 'Education',
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+  {
+    id: 'cc-6',
+    title: 'LinkedIn Carousel: Q1 Wins',
+    date: isoDate(2025, 3, 28),
+    platforms: ['linkedin'],
+    status: 'drafting',
+    contentType: 'post',
+    linkedContentIds: [],
+    createdAt: isoNow(),
+    updatedAt: isoNow(),
+  },
+];

@@ -11,6 +11,7 @@ import { DashboardPlugin } from '@vendure/dashboard/plugin';
 import { GraphiqlPlugin } from '@vendure/graphiql-plugin';
 import 'dotenv/config';
 import path from 'path';
+import { SkilloContentStrategyPlugin } from './plugins/skillo-content-strategy/skillo-content-strategy.plugin';
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
@@ -89,6 +90,7 @@ export const config: VendureConfig = {
                 changeEmailAddressUrl: 'http://localhost:8080/verify-email-address-change'
             },
         }),
+        SkilloContentStrategyPlugin,
         DashboardPlugin.init({
             route: 'dashboard',
             appDir: IS_DEV

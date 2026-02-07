@@ -1,0 +1,1 @@
+export { BrandSetup } from './BrandSetup';

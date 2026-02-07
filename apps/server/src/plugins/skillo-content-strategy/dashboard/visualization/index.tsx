@@ -1,0 +1,1 @@
+export { RelationshipView } from './RelationshipView';
