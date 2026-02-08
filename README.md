@@ -1,6 +1,6 @@
 # skillo
 
-A full-stack e-commerce application built with [Vendure](https://www.vendure.io/) and [Next.js](https://nextjs.org/).
+For free content creators. A full-stack e-commerce application built with [Vendure](https://www.vendure.io/) and [Next.js](https://nextjs.org/).
 
 ## Project Structure
 
