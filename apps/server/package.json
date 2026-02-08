@@ -17,13 +17,17 @@
     "db:fresh": "docker compose down -v && docker compose up -d postgres_db",
     "create-tenants": "node scripts/create-tenants.mjs"
   },
-"dependencies": {
-        "axios": "^1.6.0",
-        "@vendure/asset-server-plugin": "3.5.3",
+  "dependencies": {
+    "@reactflow/background": "^11.3.14",
+    "@reactflow/controls": "^11.2.14",
+    "@reactflow/core": "^11.11.4",
+    "@reactflow/minimap": "^11.7.14",
+    "@vendure/asset-server-plugin": "3.5.3",
     "@vendure/core": "3.5.3",
     "@vendure/dashboard": "3.5.3",
     "@vendure/email-plugin": "3.5.3",
     "@vendure/graphiql-plugin": "3.5.3",
+    "axios": "^1.6.0",
     "dotenv": "17.2.4",
     "pg": "8.18.0"
   },

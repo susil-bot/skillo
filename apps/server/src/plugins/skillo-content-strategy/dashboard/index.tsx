@@ -6,7 +6,7 @@ import {
     PageLayout,
     PageTitle,
 } from '@vendure/dashboard';
-import { FileText, ListTree, BarChart3, LayoutDashboard, Calendar } from 'lucide-react';
+import { FileText, ListTree, BarChart3, LayoutDashboard, Calendar, Workflow, Webhook, Send } from 'lucide-react';
 import { PlannerProvider } from './context/planner-context';
 import { CalendarProvider } from './content-calendar/context/calendar-context';
 import { BrandSetup } from './brand';
@@ -14,8 +14,12 @@ import { PlannerBoard } from './planner';
 import { RelationshipView } from './visualization';
 import { PlatformView } from './platforms';
 import { ContentCalendar } from './content-calendar';
+import { AutomationWorkflow } from './automation-workflow';
+import { WebhooksView } from './automation-webhooks';
+import { PostsView } from './automation-posts';
 
 const CONTENT_STRATEGY_SECTION = 'content-strategy';
+const AUTOMATION_SECTION = 'automation';
 const WRAPPER_CLASS = 'h-[calc(100vh-8rem)] min-h-[400px]';
 
 function makeCspPage(pageId: string, title: string, View: React.ComponentType) {
@@ -43,6 +47,13 @@ defineDashboardExtension({
             icon: FileText,
             placement: 'top',
             order: 450,
+        },
+        {
+            id: AUTOMATION_SECTION,
+            title: 'Automation',
+            icon: Workflow,
+            placement: 'top',
+            order: 460,
         },
     ],
     routes: [
@@ -108,6 +119,72 @@ defineDashboardExtension({
                                 <CalendarProvider>
                                     <ContentCalendar />
                                 </CalendarProvider>
+                            </div>
+                        </PageBlock>
+                    </PageLayout>
+                </Page>
+            ),
+        },
+        {
+            path: '/automation/workflows',
+            navMenuItem: {
+                sectionId: AUTOMATION_SECTION,
+                id: 'automation-workflows',
+                title: 'Workflows',
+                icon: Workflow,
+                order: 1,
+            },
+            component: () => (
+                <Page pageId="automation-workflows">
+                    <PageTitle>Automation workflows</PageTitle>
+                    <PageLayout>
+                        <PageBlock column="main" blockId="automation-workflows-block">
+                            <div className={WRAPPER_CLASS}>
+                                <AutomationWorkflow />
+                            </div>
+                        </PageBlock>
+                    </PageLayout>
+                </Page>
+            ),
+        },
+        {
+            path: '/automation/webhooks',
+            navMenuItem: {
+                sectionId: AUTOMATION_SECTION,
+                id: 'automation-webhooks',
+                title: 'Webhooks',
+                icon: Webhook,
+                order: 2,
+            },
+            component: () => (
+                <Page pageId="automation-webhooks">
+                    <PageTitle>Webhooks</PageTitle>
+                    <PageLayout>
+                        <PageBlock column="main" blockId="automation-webhooks-block">
+                            <div className={WRAPPER_CLASS}>
+                                <WebhooksView />
+                            </div>
+                        </PageBlock>
+                    </PageLayout>
+                </Page>
+            ),
+        },
+        {
+            path: '/automation/posts',
+            navMenuItem: {
+                sectionId: AUTOMATION_SECTION,
+                id: 'automation-posts',
+                title: 'Posts',
+                icon: Send,
+                order: 3,
+            },
+            component: () => (
+                <Page pageId="automation-posts">
+                    <PageTitle>Posts</PageTitle>
+                    <PageLayout>
+                        <PageBlock column="main" blockId="automation-posts-block">
+                            <div className={WRAPPER_CLASS}>
+                                <PostsView />
                             </div>
                         </PageBlock>
                     </PageLayout>

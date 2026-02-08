@@ -13,9 +13,15 @@ import 'dotenv/config';
 import path from 'path';
 import { SkilloContentStrategyPlugin } from './plugins/skillo-content-strategy/skillo-content-strategy.plugin';
 
-// Social Connector – OAuth + insights (Meta, LinkedIn, YouTube) on same server
-const socialConnectorPath = path.join(__dirname, '..', 'social-connector', 'router.js');
-const { router: socialConnectorRouter } = require(socialConnectorPath);
+// Social Connector – OAuth + insights (Meta, LinkedIn, YouTube) on same server.
+// Resolve from cwd so dashboard build (which compiles config to a temp dir) does not require from wrong path.
+let socialConnectorRouter: ((req: unknown, res: unknown, next: () => void) => void) | null = null;
+try {
+    const socialConnectorPath = path.join(process.cwd(), 'social-connector', 'router.js');
+    socialConnectorRouter = require(socialConnectorPath).router;
+} catch {
+    socialConnectorRouter = null;
+}
 
 const IS_DEV = process.env.APP_ENV === 'dev';
 const serverPort = +process.env.PORT || 3000;
@@ -26,11 +32,15 @@ export const config: VendureConfig = {
         adminApiPath: 'admin-api',
         shopApiPath: 'shop-api',
         trustProxy: IS_DEV ? false : 1,
-        middleware: [
-            { route: 'health', handler: socialConnectorRouter },
-            { route: 'auth', handler: socialConnectorRouter },
-            { route: 'insights', handler: socialConnectorRouter },
-        ],
+        middleware: socialConnectorRouter
+            ? [
+                { route: 'health', handler: socialConnectorRouter },
+                { route: 'auth', handler: socialConnectorRouter },
+                { route: 'insights', handler: socialConnectorRouter },
+                { route: 'webhooks', handler: socialConnectorRouter },
+                { route: 'publish', handler: socialConnectorRouter },
+              ]
+            : [],
         // The following options are useful in development mode,
         // but are best turned off for production for security
         // reasons.

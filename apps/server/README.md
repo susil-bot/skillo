@@ -105,6 +105,8 @@ OAuth and insights for **Meta (Instagram)**, **LinkedIn**, and **YouTube** are m
 - **Health:** `GET /health`
 - **OAuth:** `GET /auth/meta`, `/auth/linkedin`, `/auth/youtube` (and `/callback` for each). Optional `?userId=xxx`.
 - **Insights:** `GET /insights/instagram`, `/insights/linkedin`, `/insights/youtube` (optional `?userId=xxx`).
+- **Publish:** `POST /publish/instagram/image`, `/publish/instagram/reel`, `POST /publish/linkedin`, `POST /publish/youtube` (body: platform-specific; optional `?userId=xxx`).
+- **Webhooks:** `GET/POST /webhooks/meta`, `GET/POST /webhooks/linkedin`, `POST /webhooks/youtube` (for real-time events; set `META_WEBHOOK_VERIFY_TOKEN` for Meta).
 
 Set the following in `.env` (or your environment) as needed:
 
